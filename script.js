@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			method: 'POST',
 			headers: {
 				Authorization:
-					'Bearer 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',
+					'Bearer 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',
 				'Content-Type': 'application/json',
 			},
 
