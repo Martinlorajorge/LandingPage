@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
 	const $form = document.querySelector('#form');
+	const $status = document.getElementById('my-form-status');
+
+	function clearStatus() {
+		$status.innerHTML = ''; // Limpiar el contenido del elemento
+	}
 
 	$form.addEventListener('submit', async function (event) {
 		event.preventDefault();
@@ -32,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		const mensaje = document.getElementById('mensaje');
 		const error = document.getElementById('error');
 		const errores = [];
-
+		clearStatus();
 		// Validar Nombre
 		if (!nombre.value) {
 			errores.push('Por favor ingresa tu nombre.');
