@@ -1,12 +1,31 @@
 document.addEventListener('DOMContentLoaded', function () {
-	const form = document.querySelector(
-		'form[action="https://formsubmit.co/chatmartinlorajorge@gmail.com"]',
-	);
+	const $form = document.querySelector('#form');
 
-	form.addEventListener('submit', function (event) {
+	$form.addEventListener('submit', async function (event) {
 		event.preventDefault();
+		var status = document.getElementById('my-form-status');
+		const form = new FormData($form);
+		try {
+			const response = await fetch($form.action, {
+				method: 'POST',
+				body: form,
+				headers: {
+					Accept: 'application/json', // Corregido: 'header' a 'headers'
+				},
+			});
+			if (response.ok) {
+				status.innerHTML = 'Gracias por su mensaje, contestaré a la brevedad'; // Corregido: Corregido el texto del mensaje
+				alert('Formulario enviado correctamente');
+				$form.reset();
+				return;
+			} else {
+				throw new Error('Error al enviar el formulario');
+			}
+		} catch (error) {
+			console.error('Error:', error.message);
+		}
 
-		// Validación de campos
+		// Validación de campos (se movió dentro del listener del submit)
 		const nombre = document.getElementById('nombre');
 		const asunto = document.getElementById('asunto');
 		const email = document.getElementById('email');
@@ -51,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 
 		if (errores.length === 0) {
-			form.submit();
+			$form.submit();
 		} else {
 			console.error('Errores de validación:', errores);
 		}
