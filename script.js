@@ -1,41 +1,59 @@
 document.addEventListener('DOMContentLoaded', function () {
-	const form = document.querySelector('form');
+	const form = document.querySelector(
+		'form[action="https://formsubmit.co/chatmartinlorajorge@gmail.com"]',
+	);
 
 	form.addEventListener('submit', function (event) {
 		event.preventDefault();
 
-		const nombre = document.getElementById('nombre').value;
-		const asunto = document.getElementById('asunto').value;
-		const correo = document.getElementById('correo').value;
-		const mensaje = document.getElementById('mensaje').value;
+		// Validación de campos
+		const nombre = document.getElementById('nombre');
+		const asunto = document.getElementById('asunto');
+		const email = document.getElementById('email');
+		const mensaje = document.getElementById('mensaje');
+		const error = document.getElementById('error');
+		const errores = [];
 
-		const data = {
-			to: correo,
-			from: 'chatmartinlorajorge@gmail.com',
-			subject: asunto,
-			text: `Nombre: ${nombre}\nCorreo: ${correo}\nMensaje: ${mensaje}`,
-		};
+		// Validar Nombre
+		if (!nombre.value) {
+			errores.push('Por favor ingresa tu nombre.');
+			nombre.placeholder = 'Por favor ingresa tu nombre.';
+			nombre.classList.add('error');
+		} else {
+			nombre.classList.remove('error');
+		}
 
-		fetch('https://api.sendgrid.com/v3/mail/send', {
-			mode: 'no-cors',
-			method: 'POST',
-			headers: {
-				Authorization:
-					'Bearer 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',
-				'Content-Type': 'application/json',
-			},
+		// Validar Asunto
+		if (!asunto.value) {
+			errores.push('Por favor ingresa un asunto.');
+			asunto.placeholder = 'Por favor ingresa un asunto.';
+			asunto.classList.add('error');
+		} else {
+			asunto.classList.remove('error');
+		}
 
-			body: JSON.stringify(data),
-		})
-			.then((response) => {
-				if (response.ok) {
-					console.log('Correo enviado con éxito');
-				} else {
-					console.error('Error al enviar el correo');
-				}
-			})
-			.catch((error) => {
-				console.error('Error:', error);
-			});
+		// Validar Email
+		if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+			errores.push('Por favor ingresa un correo electrónico válido.');
+			email.placeholder = 'Por favor ingresa un correo electrónico válido.';
+			email.classList.add('error');
+		} else {
+			email.classList.remove('error');
+		}
+
+		// Validar Mensaje
+		if (!mensaje.value) {
+			errores.push('Por favor ingresa tu mensaje.');
+			mensaje.placeholder = 'Por favor ingresa tu mensaje.';
+			mensaje.classList.add('error');
+		} else {
+			mensaje.classList.remove('error');
+		}
+
+		if (errores.length === 0) {
+			form.submit();
+		} else {
+			console.error('Errores de validación:', errores);
+		}
 	});
 });
