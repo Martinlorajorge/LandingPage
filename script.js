@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		$status.innerHTML = ''; // Limpiar el contenido del elemento
 	}
 
+	console.log($status);
 	$form.addEventListener('submit', async function (event) {
 		event.preventDefault();
 		var status = document.getElementById('my-form-status');
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					Accept: 'application/json', // Corregido: 'header' a 'headers'
 				},
 			});
+			console.log(response);
 			if (response.ok) {
 				status.innerHTML = 'Gracias por su mensaje, contestaré a la brevedad'; // Corregido: Corregido el texto del mensaje
 				alert('Formulario enviado correctamente');
@@ -35,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		const asunto = document.getElementById('asunto');
 		const email = document.getElementById('email');
 		const mensaje = document.getElementById('mensaje');
-		const error = document.getElementById('error');
 		const errores = [];
 		clearStatus();
 		// Validar Nombre
