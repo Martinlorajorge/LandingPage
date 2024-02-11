@@ -17,12 +17,12 @@ document.addEventListener('DOMContentLoaded', function () {
 				method: 'POST',
 				body: form,
 				headers: {
-					Accept: 'application/json', // Corregido: 'header' a 'headers'
+					Accept: 'application/json',
 				},
 			});
 			console.log(response);
 			if (response.ok) {
-				status.innerHTML = 'Gracias por su mensaje, contestaré a la brevedad'; // Corregido: Corregido el texto del mensaje
+				status.innerHTML = 'Gracias por su mensaje, contestaré a la brevedad';
 				alert('Formulario enviado correctamente');
 				$form.reset();
 				return;
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			console.error('Error:', error.message);
 		}
 
-		// Validación de campos (se movió dentro del listener del submit)
+		// Validación de campos
 		const nombre = document.getElementById('nombre');
 		const asunto = document.getElementById('asunto');
 		const email = document.getElementById('email');
